@@ -4,7 +4,7 @@
 
 #include <jni.h>
 #include <android/native_window_jni.h>
-#include "camera_uvc.h"
+#include "camera_device.h"
 
 #define HANDLE "handle"
 #define CAMERA_DEVICE "android/camera/uvc/CameraDevice"

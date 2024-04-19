@@ -47,7 +47,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "camera_uvc_v${variant.versionName}.${variant.versionCode}.apk"
+            outputFileName = "android_camera_uvc.apk"
         }
     }
 
@@ -70,7 +70,7 @@ dependencies {
         implementation project(path: ':camera_uvc')
         debugImplementation rootProject.ext.dependencies.leakcanary
     } else {
-        implementation(name: 'camera_uvc_v1.0.0', ext: 'aar')
+        implementation(name: 'camera_uvc', ext: 'aar')
     }
 }
 

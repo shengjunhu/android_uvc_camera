@@ -42,7 +42,7 @@ android {
 
     android.libraryVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "camera_uvc_v${defaultConfig.versionCode}.aar"
+            outputFileName = "camera_uvc.aar"
         }
     }
 

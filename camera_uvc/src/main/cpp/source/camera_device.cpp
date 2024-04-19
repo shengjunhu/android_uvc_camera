@@ -5,7 +5,7 @@
 #include <thread>
 #include <fcntl.h>
 
-#include "camera_uvc.h"
+#include "camera_device.h"
 #include "libuvc/libuvc_internal.h"
 
 NAMESPACE_L

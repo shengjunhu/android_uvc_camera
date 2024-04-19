@@ -2,12 +2,16 @@
 🔥 UVC Camera for Android.
 
 ### Image
-<img src="doc/img/screenshot_1.png" width="200px"/> <img src="doc/img/screenshot_2.png" width="200px"/> <img src="doc/img/screenshot_3.png" width="200px"/>
+<center class="half">
+    <img src="doc/img/screenshot1.png" width="200"/>
+    <img src="doc/img/screenshot2.png" width="200"/>
+    <img src="doc/img/screenshot3.png" width="200"/>
+</center>
 
-### Sample
-| <img src="doc/img/qr_apk.png" width="260px" /> |
-| :--------:                      |
-| Scan QR code or [Download][1]   |
+### Demo
+| <img src="doc/img/qr_apk.png" width="250" /> |
+| :--------:                                   |
+| Scan QR code or [Download][1]                |
 
 ### Add Function
 
@@ -35,7 +39,7 @@ Copyright (c) 2024 shengjunhu
 Please comply with the relevant third party libraries license
 ```
 
-[1]: https://github.com/shengjunhu/android_camera_uvc/raw/master/doc/apk/android_camera_uvc.apk
+[1]: https://github.com/shengjunhu/android_camera_uvc/raw/main/app/release/android_camera_uvc.apk
 [2]: https://github.com/saki4510t/UVCCamera
 [3]: https://github.com/libjpeg-turbo/libjpeg-turbo
 [4]: https://chromium.googlesource.com/external/libyuv
