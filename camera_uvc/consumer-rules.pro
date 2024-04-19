@@ -1,0 +1,1 @@
+-keep class android.camera.uvc.* {*;}

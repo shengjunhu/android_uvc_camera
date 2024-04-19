@@ -1,0 +1,76 @@
+apply plugin: rootProject.ext.plugins.application
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        ndk { abiFilters "armeabi-v7a", "arm64-v8a" }
+    }
+
+    signingConfigs {
+        config {
+            keyAlias 'camera_uvc'
+            keyPassword 'camera_uvc'
+            storeFile file('android.jks')
+            storePassword 'camera_uvc'
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            jniDebuggable false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "camera_uvc_v${variant.versionName}.${variant.versionCode}.apk"
+        }
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies.core
+    implementation rootProject.ext.dependencies.material
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.annotations
+    implementation rootProject.ext.dependencies.drawerlayout
+    if (rootProject.ext.isDebug) {
+        implementation project(path: ':camera_uvc')
+        debugImplementation rootProject.ext.dependencies.leakcanary
+    } else {
+        implementation(name: 'camera_uvc_v1.0.0', ext: 'aar')
+    }
+}
+
