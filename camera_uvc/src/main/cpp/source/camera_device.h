@@ -8,14 +8,24 @@
 
 NAMESPACE_L
 
+    #include <thread>
     #include "libuvc/libuvc.h"
     #include "frame_converter.h"
 
-    class camera_uvc
+    typedef enum
+    {
+        CREATE = 0x0,
+        OPENED = 0x1,
+        CONFIG = 0x2,
+        STREAM = 0x3,
+        VIDEO  = 0x4,
+    } camera_state;
+
+    class camera_device
     {
     public:
-        camera_uvc();
-        ~camera_uvc();
+        camera_device();
+        ~camera_device();
         int open_device(const std::string fs, const int fd);
         int get_support(std::vector<support_info> &list);
         int set_support(support_info &info);

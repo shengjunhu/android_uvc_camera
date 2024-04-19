@@ -2,9 +2,7 @@
 🔥 UVC Camera for Android.
 
 ### Image
-<center class="third">
-    <img src="doc/img/screenshot1.png" width="200"/><img src="doc/img/screenshot2.png" width="200"/><img src="doc/img/screenshot3.png" width="200"/>
-</center>
+<img src="doc/img/screenshot1.png" width="200"/> <img src="doc/img/screenshot2.png" width="200"/> <img src="doc/img/screenshot3.png" width="200"/>
 
 ### Demo
 | <img src="doc/img/qr_apk.png" width="250" /> |

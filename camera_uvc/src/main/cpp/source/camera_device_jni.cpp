@@ -25,7 +25,7 @@ static void set_field_long(JNIEnv *env, jobject obj, const char *name, jlong val
 }
 
 static CAMERA_ID create(JNIEnv *env, jobject thiz) {
-    auto *camera = new camera_uvc();
+    auto *camera = new camera_device();
     auto id = reinterpret_cast<CAMERA_ID>(camera);
     set_field_long(env, thiz, HANDLE, id);
     return id;
@@ -36,7 +36,7 @@ static jint open_device(JNIEnv *env, jclass clazz, CAMERA_ID id, jstring fs, jin
     if (!fs || fd < 1) {
         LOGE("Invalid parameter.");
     } else {
-        auto *camera = reinterpret_cast<camera_uvc *>(id);
+        auto *camera = reinterpret_cast<camera_device *>(id);
         if (camera) {
             const char *_fs = env->GetStringUTFChars(fs, JNI_FALSE);
             ret = camera->open_device(_fs, fd);
@@ -50,7 +50,7 @@ static jint open_device(JNIEnv *env, jclass clazz, CAMERA_ID id, jstring fs, jin
 
 static jint get_support(JNIEnv *env, jobject thiz, CAMERA_ID id, jobject list) {
     jint ret = STATE_NONE_INIT;
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         if (width > 0 && height > 0) {
             ret = camera->set_frame_size(width, height);
@@ -84,7 +84,7 @@ static jint set_support(JNIEnv *env, jobject thiz, CAMERA_ID id, jobject support
         LOGW("Invalid parameter.");
         return STATE_ERROR_PARAM;
     } else {
-        auto *camera = reinterpret_cast<camera_uvc *>(id);
+        auto *camera = reinterpret_cast<camera_device *>(id);
         if (camera) {
             jclass cls = env->GetObjectClass(support);
             jfieldID fid1 = env->GetFieldID(cls, "id","I");
@@ -120,7 +120,7 @@ static jint set_support(JNIEnv *env, jobject thiz, CAMERA_ID id, jobject support
     }
 
     jint ret = STATE_NONE_INIT;
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         if (width > 0 && height > 0) {
             ret = camera->set_frame_size(width, height);
@@ -154,7 +154,7 @@ static jint set_preview(JNIEnv *env, jclass clazz, CAMERA_ID id, jobject surface
         LOGW("Invalid parameter.");
         return STATE_ERROR_PARAM;
     } else {
-        auto *camera = reinterpret_cast<camera_uvc *>(id);
+        auto *camera = reinterpret_cast<camera_device *>(id);
         if (camera) {
             return camera->set_preview(ANativeWindow_fromSurface(env, surface));
         } else {
@@ -165,7 +165,7 @@ static jint set_preview(JNIEnv *env, jclass clazz, CAMERA_ID id, jobject surface
 }
 
 static jint start_stream(JNIEnv *env, jclass clazz, CAMERA_ID id) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera != nullptr) {
         return camera->start_stream();
     } else {
@@ -175,7 +175,7 @@ static jint start_stream(JNIEnv *env, jclass clazz, CAMERA_ID id) {
 }
 
 static jint take_picture(JNIEnv *env, jclass clazz, CAMERA_ID id) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         return camera->take_picture();
     } else {
@@ -185,7 +185,7 @@ static jint take_picture(JNIEnv *env, jclass clazz, CAMERA_ID id) {
 }
 
 static jint start_video(JNIEnv *env, jclass clazz, CAMERA_ID id) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         return camera->start_video();
     } else {
@@ -195,7 +195,7 @@ static jint start_video(JNIEnv *env, jclass clazz, CAMERA_ID id) {
 }
 
 static jint pause_video(JNIEnv *env, jclass clazz, CAMERA_ID id, jboolean pause) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         return camera->pause_video(pause);
     } else {
@@ -205,7 +205,7 @@ static jint pause_video(JNIEnv *env, jclass clazz, CAMERA_ID id, jboolean pause)
 }
 
 static jint stop_video(JNIEnv *env, jclass clazz, CAMERA_ID id) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         return camera->stop_video();
     } else {
@@ -215,7 +215,7 @@ static jint stop_video(JNIEnv *env, jclass clazz, CAMERA_ID id) {
 }
 
 static jint stop_stream(JNIEnv *env, jclass clazz, CAMERA_ID id) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         return camera->stop_stream();
     } else {
@@ -225,7 +225,7 @@ static jint stop_stream(JNIEnv *env, jclass clazz, CAMERA_ID id) {
 }
 
 static jint close_device(JNIEnv *env, jclass clazz, CAMERA_ID id) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         return camera->close_device();
     } else {
@@ -235,7 +235,7 @@ static jint close_device(JNIEnv *env, jclass clazz, CAMERA_ID id) {
 }
 
 static void destroy(JNIEnv *env, jobject thiz, CAMERA_ID id) {
-    auto *camera = reinterpret_cast<camera_uvc *>(id);
+    auto *camera = reinterpret_cast<camera_device *>(id);
     if (camera) {
         set_field_long(env, thiz, HANDLE, 0);
         camera->destroy();
