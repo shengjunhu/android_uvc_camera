@@ -9,10 +9,9 @@ import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
+import android.os.Build;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -45,13 +44,18 @@ public final class CameraManager {
         this.watcher = watcher;
         // PendingIntent
         Intent intent = new Intent(ACTION_PERMISSION);
-        this.pi = PendingIntent.getBroadcast(ctx, 0, intent, 0);
+        int flags = (Build.VERSION.SDK_INT > 30 ? 1 << 25 : 0);
+        this.pi = PendingIntent.getBroadcast(ctx, 0, intent, flags);
         this.usbManager = (UsbManager)ctx.getSystemService(Context.USB_SERVICE);
         // BroadcastReceiver
         IntentFilter filter = new IntentFilter(ACTION_PERMISSION);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        ctx.registerReceiver(usbReceiver, filter);
+        if (Build.VERSION.SDK_INT > 33) {
+            ctx.registerReceiver(usbReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            ctx.registerReceiver(usbReceiver, filter);
+        }
     }
 
     /**

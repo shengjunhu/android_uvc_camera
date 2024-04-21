@@ -9,20 +9,24 @@
 | :--------:                                   |
 | Scan QR code or [Download][1]                |
 
-### Add Function
+### Features
 
+### FAQ
 
-### About Build
-* CMake: 3.10.2
-* AndroidStudio: 4.0.1
+### Build
+- root build.gradle of project
+```
+repositories {
+    maven { url "https://jitpack.io" }
+}
+```
 
-### About Author:
-- Author: shengjunhu
-- Date  : 2020/05/01
-- E-Mail: shengjunh@outlook.com
-- GitHub: https://github.com/shengjunhu
+- module build.gradle of project
+```
+implementation com.github.shengjunhu:camera_uvc:last
+```
 
-### About Third Party Libraries
+### Thanks
 - [saki4510t/UVCCamera][2]
 - [libjpeg-turbo][3]
 - [libyuv][4]
@@ -31,7 +35,7 @@
 
 ### About License
 ```
-Copyright (c) 2024 shengjunhu
+Copyright (c) 2020~2024 shengjunhu
 Please comply with the relevant third party libraries license
 ```
 
